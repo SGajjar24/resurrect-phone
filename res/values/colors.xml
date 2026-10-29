@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Background & Surface -->
+    <color name="bg_dark">#12100E</color>
+    <color name="surface_card">#1E1916</color>
+    <color name="surface_card_pressed">#2B2420</color>
+    <color name="surface_card_playing">#2E2319</color>
+    <color name="card_stroke">#3A2F28</color>
+    <color name="card_stroke_playing">#F59E0B</color>
+
+    <!-- Spiritual Gold & Saffron Accents -->
+    <color name="gold">#FFB300</color>
+    <color name="gold_primary">#FFB300</color>
+    <color name="card_bg">#1E1916</color>
+    <color name="gold_light">#FFE082</color>
+    <color name="saffron_primary">#FF7043</color>
+    <color name="saffron_dark">#D84315</color>
+    <color name="amber_gold">#D97706</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFF9ED</color>
+    <color name="text_secondary">#D6C7B2</color>
+    <color name="text_muted">#9E8F7C</color>
+    <color name="text_gold">#FFD54F</color>
+
+    <!-- Controls -->
+    <color name="dock_bg">#181412</color>
+    <color name="dock_border">#D97706</color>
+    <color name="btn_stop">#B91C1C</color>
+    <color name="btn_stop_pressed">#7F1D1D</color>
+    <color name="btn_pause">#D97706</color>
+    <color name="btn_pause_pressed">#B45309</color>
+    <color name="btn_vol">#28221E</color>
+    <color name="btn_vol_pressed">#3E352F</color>
+    <color name="tag_offline_bg">#1B3320</color>
+    <color name="tag_offline_text">#86EFAC</color>
+    <color name="tag_online_bg">#3B1824</color>
+    <color name="tag_online_text">#FCA5A5</color>
+    
+    <!-- White / Transparent -->
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">શ્રી ભક્તિ સંગ્રહ</string>
+    <string name="app_subtitle">નિત્ય નિયમ • આરતી અને ભજન</string>
+    
+    <!-- Section Headers -->
+    <string name="section_aartis">નિત્ય ભક્તિ (ઓફલાઇન)</string>
+    <string name="section_online">ઓનલાઇન અને મનોરંજન</string>
+    
+    <!-- Tracks -->
+    <string name="hanuman_chalisa">હનુમાન ચાલીસા</string>
+    <string name="hanuman_desc">શ્રી હરિહરન • ગુલશન કુમાર</string>
+    
+    <string name="ganesh_aarti">ગણેશજી આરતી</string>
+    <string name="ganesh_desc">જય ગણેશ જય ગણેશ દેવા</string>
+    
+    <string name="shiv_aarti">શિવજી આરતી</string>
+    <string name="shiv_desc">ઓમ જય શિવ ઓમકારા</string>
+    
+    <string name="krishna_bhajan">કૃષ્ણ ભજન</string>
+    <string name="krishna_desc">અચ્યુતમ કેશવમ કૃષ્ણ દામોદરમ</string>
+    
+    <string name="amba_aarti">અંબા મા આરતી</string>
+    <string name="amba_desc">જય આદ્ય શક્તિ • આનંદનો ગરબો</string>
+    
+    <string name="dada_aarti">દાદા ભગવાન આરતી</string>
+    <string name="dada_desc">સર્વ દોષ નિવારણ આરતી</string>
+    
+    <string name="jagdish_aarti">વિષ્ણુ આરતી</string>
+    <string name="jagdish_desc">ઓમ જય જગદીશ હરે</string>
+    
+    <!-- Online & Radio -->
+    <string name="youtube_bhajan">યુટ્યુબ ભજન</string>
+    <string name="youtube_desc">ગુજરાતી ભજન અને સંતવાણી (વિડીયો)</string>
+    
+    <string name="fm_radio">એફ.એમ. રેડિયો</string>
+    <string name="fm_desc">સ્થાનિક લાઈવ રેડિયો સ્ટેશન</string>
+    
+    <!-- Player Actions -->
+    <string name="stop_playback">બંધ કરો</string>
+    <string name="pause_playback">અટકાવો</string>
+    <string name="play_playback">ચાલુ કરો</string>
+    <string name="vol_up">અવાજ +</string>
+    <string name="vol_down">અવાજ -</string>
+    
+    <string name="now_playing">વાગી રહ્યું છે: </string>
+    <string name="now_paused">અટકાવેલ છે: </string>
+    <string name="stopped">કંઈ વાગતું નથી • પસંદ કરો</string>
+    <string name="tag_offline">ઓફલાઇન</string>
+    <string name="tag_online">ઓનલાઇન</string>
+</resources>

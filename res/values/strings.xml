@@ -48,4 +48,10 @@
     <string name="stopped">કંઈ વાગતું નથી • પસંદ કરો</string>
     <string name="tag_offline">ઓફલાઇન</string>
     <string name="tag_online">ઓનલાઇન</string>
+
+    <!-- Sleep Timer & Kiosk -->
+    <string name="timer_off">⏱️ બંધ</string>
+    <string name="timer_15">⏱️ ૧૫ મિ.</string>
+    <string name="timer_30">⏱️ ૩૦ મિ.</string>
+    <string name="timer_60">⏱️ ૬૦ મિ.</string>
 </resources>

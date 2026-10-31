@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
     private Button btnStop;
     private Button btnVolDown;
     private Button btnVolUp;
+    private Button btnSleepTimer;
 
     // Devotional Cards
     private View cardHanuman;
@@ -63,6 +64,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
         btnStop = (Button) findViewById(R.id.btnStop);
         btnVolDown = (Button) findViewById(R.id.btnVolDown);
         btnVolUp = (Button) findViewById(R.id.btnVolUp);
+        btnSleepTimer = (Button) findViewById(R.id.btnSleepTimer);
 
         cardHanuman = findViewById(R.id.cardHanuman);
         cardGanesh = findViewById(R.id.cardGanesh);
@@ -97,6 +99,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
         btnStop.setOnClickListener(this);
         btnVolDown.setOnClickListener(this);
         btnVolUp.setOnClickListener(this);
+        if (btnSleepTimer != null) btnSleepTimer.setOnClickListener(this);
 
         Intent svc = new Intent(this, BhaktiService.class);
         startService(svc);
@@ -150,6 +153,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
             BhaktiService s = BhaktiService.getInstance();
             if (s != null) {
                 s.adjustVolume(1);
+            }
+        } else if (id == R.id.btnSleepTimer) {
+            BhaktiService s = BhaktiService.getInstance();
+            if (s != null) {
+                s.cycleSleepTimer();
+                int mins = s.getSleepTimerMinutes();
+                if (mins > 0) {
+                    Toast.makeText(this, "⏱️ સ્લીપ ટાઈમર: " + mins + " મિનિટ પછી આપમેળે બંધ થશે", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "⏱️ સ્લીપ ટાઈમર બંધ કરેલ છે", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -216,7 +230,35 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
     protected void onResume() {
         super.onResume();
         currentInstance = this;
+        hideSystemUI();
         updateUi();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    /**
+     * Immersive Sticky Kiosk Mode:
+     * Hides the navigation bar and status bar so elderly users cannot
+     * accidentally exit, misclick Back, or get trapped in system menus.
+     */
+    private void hideSystemUI() {
+        try {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
+        } catch (Exception ignored) {}
     }
 
     @Override
@@ -279,6 +321,21 @@ public class MainActivity extends Activity implements View.OnClickListener, Runn
             txtStatus.setText(getString(R.string.stopped));
             btnPause.setText(getString(R.string.play_playback));
             if (imgStatusIcon != null) imgStatusIcon.setImageResource(R.drawable.ic_diya);
+        }
+
+        // Update Sleep Timer Button
+        if (btnSleepTimer != null) {
+            if (s != null) {
+                btnSleepTimer.setText(s.getSleepTimerLabel());
+                if (s.getSleepTimerMinutes() > 0) {
+                    btnSleepTimer.setTextColor(0xFFFF7043); // bright saffron when active
+                } else {
+                    btnSleepTimer.setTextColor(0xFFFFB300); // temple gold
+                }
+            } else {
+                btnSleepTimer.setText(getString(R.string.timer_off));
+                btnSleepTimer.setTextColor(0xFFFFB300);
+            }
         }
     }
 }

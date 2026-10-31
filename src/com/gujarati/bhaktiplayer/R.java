@@ -84,41 +84,42 @@ public final class R {
     }
     public static final class id {
         public static final int bottomDock=0x7f070002;
-        public static final int btnPause=0x7f070007;
-        public static final int btnStop=0x7f070008;
-        public static final int btnVolDown=0x7f070005;
-        public static final int btnVolUp=0x7f070006;
-        public static final int cardAmba=0x7f070016;
-        public static final int cardDada=0x7f070019;
-        public static final int cardFmRadio=0x7f070022;
-        public static final int cardGanesh=0x7f07000d;
-        public static final int cardHanuman=0x7f07000a;
-        public static final int cardJagdish=0x7f07001c;
-        public static final int cardKrishna=0x7f070013;
-        public static final int cardNewPipe=0x7f07001f;
-        public static final int cardShiv=0x7f070010;
+        public static final int btnPause=0x7f070008;
+        public static final int btnSleepTimer=0x7f070005;
+        public static final int btnStop=0x7f070009;
+        public static final int btnVolDown=0x7f070006;
+        public static final int btnVolUp=0x7f070007;
+        public static final int cardAmba=0x7f070017;
+        public static final int cardDada=0x7f07001a;
+        public static final int cardFmRadio=0x7f070023;
+        public static final int cardGanesh=0x7f07000e;
+        public static final int cardHanuman=0x7f07000b;
+        public static final int cardJagdish=0x7f07001d;
+        public static final int cardKrishna=0x7f070014;
+        public static final int cardNewPipe=0x7f070020;
+        public static final int cardShiv=0x7f070011;
         public static final int headerDivider=0x7f070001;
         public static final int headerLayout=0x7f070000;
-        public static final int icActionAmba=0x7f070018;
-        public static final int icActionDada=0x7f07001b;
-        public static final int icActionGanesh=0x7f07000f;
-        public static final int icActionHanuman=0x7f07000c;
-        public static final int icActionJagdish=0x7f07001e;
-        public static final int icActionKrishna=0x7f070015;
-        public static final int icActionShiv=0x7f070012;
-        public static final int imgAmba=0x7f070017;
-        public static final int imgDada=0x7f07001a;
-        public static final int imgGanesh=0x7f07000e;
-        public static final int imgHanuman=0x7f07000b;
-        public static final int imgJagdish=0x7f07001d;
-        public static final int imgKrishna=0x7f070014;
-        public static final int imgNewPipe=0x7f070020;
-        public static final int imgRadio=0x7f070023;
-        public static final int imgShiv=0x7f070011;
+        public static final int icActionAmba=0x7f070019;
+        public static final int icActionDada=0x7f07001c;
+        public static final int icActionGanesh=0x7f070010;
+        public static final int icActionHanuman=0x7f07000d;
+        public static final int icActionJagdish=0x7f07001f;
+        public static final int icActionKrishna=0x7f070016;
+        public static final int icActionShiv=0x7f070013;
+        public static final int imgAmba=0x7f070018;
+        public static final int imgDada=0x7f07001b;
+        public static final int imgGanesh=0x7f07000f;
+        public static final int imgHanuman=0x7f07000c;
+        public static final int imgJagdish=0x7f07001e;
+        public static final int imgKrishna=0x7f070015;
+        public static final int imgNewPipe=0x7f070021;
+        public static final int imgRadio=0x7f070024;
+        public static final int imgShiv=0x7f070012;
         public static final int imgStatusIcon=0x7f070003;
-        public static final int scrollView=0x7f070009;
-        public static final int tagOffline=0x7f070024;
-        public static final int tagOnline=0x7f070021;
+        public static final int scrollView=0x7f07000a;
+        public static final int tagOffline=0x7f070025;
+        public static final int tagOnline=0x7f070022;
         public static final int txtStatus=0x7f070004;
     }
     public static final class layout {
@@ -159,6 +160,12 @@ public final class R {
         public static final int stopped=0x7f05001d;
         public static final int tag_offline=0x7f05001e;
         public static final int tag_online=0x7f05001f;
+        public static final int timer_15=0x7f050021;
+        public static final int timer_30=0x7f050022;
+        public static final int timer_60=0x7f050023;
+        /**  Sleep Timer & Kiosk 
+         */
+        public static final int timer_off=0x7f050020;
         public static final int vol_down=0x7f05001a;
         public static final int vol_up=0x7f050019;
         /**  Online & Radio 

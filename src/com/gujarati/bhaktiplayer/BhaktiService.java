@@ -9,12 +9,14 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
 import java.io.File;
 
-public class BhaktiService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener {
+public class BhaktiService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener, Runnable {
     private static final String TAG = "BhaktiService";
     private static final int NOTIF_ID = 1001;
 
@@ -52,6 +54,19 @@ public class BhaktiService extends Service implements MediaPlayer.OnCompletionLi
     private MediaPlayer mediaPlayer;
     private int currentSongId = SONG_NONE;
     private AudioManager audioManager;
+    private boolean isLoopMode = false;
+
+    // Sleep Timer (auto-shutoff for prayer/bedtime)
+    private int sleepTimerMinutes = 0;
+    private Handler sleepHandler = new Handler(Looper.getMainLooper());
+
+    @Override
+    public void run() {
+        Log.i(TAG, "Sleep timer expired. Gracefully stopping playback.");
+        sleepTimerMinutes = 0;
+        stopPlayback();
+        MainActivity.notifyStateChanged();
+    }
 
     @Override
     public void onCreate() {
@@ -96,6 +111,50 @@ public class BhaktiService extends Service implements MediaPlayer.OnCompletionLi
         return "કંઈ વાગતું નથી";
     }
 
+    public void cycleSleepTimer() {
+        sleepHandler.removeCallbacks(this);
+        if (sleepTimerMinutes == 0) {
+            sleepTimerMinutes = 15;
+        } else if (sleepTimerMinutes == 15) {
+            sleepTimerMinutes = 30;
+        } else if (sleepTimerMinutes == 30) {
+            sleepTimerMinutes = 60;
+        } else {
+            sleepTimerMinutes = 0;
+        }
+
+        if (sleepTimerMinutes > 0) {
+            sleepHandler.postDelayed(this, sleepTimerMinutes * 60 * 1000L);
+            Log.i(TAG, "Sleep timer scheduled: " + sleepTimerMinutes + " min");
+        } else {
+            Log.i(TAG, "Sleep timer disabled");
+        }
+        MainActivity.notifyStateChanged();
+    }
+
+    public int getSleepTimerMinutes() {
+        return sleepTimerMinutes;
+    }
+
+    public String getSleepTimerLabel() {
+        if (sleepTimerMinutes == 15) return "⏱️ ૧૫ મિ.";
+        if (sleepTimerMinutes == 30) return "⏱️ ૩૦ મિ.";
+        if (sleepTimerMinutes == 60) return "⏱️ ૬૦ મિ.";
+        return "⏱️ બંધ";
+    }
+
+    public boolean isLooping() {
+        return isLoopMode;
+    }
+
+    public void toggleLoop() {
+        isLoopMode = !isLoopMode;
+        if (mediaPlayer != null) {
+            mediaPlayer.setLooping(isLoopMode);
+        }
+        MainActivity.notifyStateChanged();
+    }
+
     public void playSong(int songId) {
         if (songId < 0 || songId >= FILE_NAMES.length) return;
 
@@ -115,6 +174,7 @@ public class BhaktiService extends Service implements MediaPlayer.OnCompletionLi
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+            mediaPlayer.setLooping(isLoopMode);
             mediaPlayer.setDataSource(getApplicationContext(), Uri.fromFile(audioFile));
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.setOnErrorListener(this);
@@ -179,7 +239,9 @@ public class BhaktiService extends Service implements MediaPlayer.OnCompletionLi
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        stopPlayback();
+        if (!isLoopMode) {
+            stopPlayback();
+        }
     }
 
     @Override
@@ -206,6 +268,9 @@ public class BhaktiService extends Service implements MediaPlayer.OnCompletionLi
 
     @Override
     public void onDestroy() {
+        if (sleepHandler != null) {
+            sleepHandler.removeCallbacks(this);
+        }
         stopPlayback();
         instance = null;
         super.onDestroy();

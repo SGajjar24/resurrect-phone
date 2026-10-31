@@ -5,10 +5,10 @@
 | Field | Value |
 |---|---|
 | **Status** | 🟢 Production Active |
-| **Version** | v2.0.0 |
+| **Version** | v2.1.0-Appliance |
 | **Category** | personal-projects |
 | **Author** | Swetang Gajjar |
-| **Last Updated** | 2026-10-30 |
+| **Last Updated** | 2026-10-31 |
 
 ## Tech Stack
 | Layer | Technology |
@@ -39,3 +39,4 @@
 |---|---|---|
 | 2026-10-30 | UI Overhaul v2.0 | Implemented sacred dark theme, deity badges, active card glowing borders, and pinned bottom dock |
 | 2026-10-30 | Public Release & Architecture | Created GitHub repo `SGajjar24/resurrect-phone`, generated isometric Anatomy figures, built GitHub Pages showcase |
+| 2026-10-31 | SystemUI Crash Fix & Appliance v2.1 | Diagnosed and fixed density=0 SystemUI VectorDrawable crash loop; implemented Immersive Sticky Kiosk mode, Sleep Timer (15/30/60m), BootReceiver auto-launch, and turnkey `setup_appliance.ps1` |

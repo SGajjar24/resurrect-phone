@@ -12,6 +12,7 @@
 ## 🪔 Live Showcase & Public Site
 - 🌐 **Project Web Hub (GitHub Pages):** [https://sgajjar24.github.io/resurrect-phone/](https://sgajjar24.github.io/resurrect-phone/)
 - 📦 **Direct APK Download:** [`apk/BhaktiPlayer.apk`](https://github.com/SGajjar24/resurrect-phone/raw/main/apk/BhaktiPlayer.apk) (Native Zero-Dependency Binary)
+- 🔌 **Zero-to-Appliance Guide (From Scratch):** [`docs/from-scratch-guide.md`](docs/from-scratch-guide.md)
 - 🤖 **Universal AI Agent Prompt:** [`docs/ai-prompt.md`](docs/ai-prompt.md) (One-click prompt to resurrect any phone)
 
 ---
@@ -52,7 +53,7 @@ flowchart LR
 flowchart TD
     subgraph "Resurrect Phone Appliance Bundle"
         direction TB
-        A["📦 Tier 1: Appliance Kernel APK<br/>(BhaktiPlayer.apk ~496 KB)"] -->|Installed via ADB| B["📱 Android OS Runtime<br/>(Launcher + Kiosk Engine)"]
+        A["📦 Tier 1: Appliance Kernel APK<br/>(BhaktiPlayer.apk < 500 KB)"] -->|Installed via ADB| B["📱 Android OS Runtime<br/>(Launcher + Kiosk Engine)"]
         C["🎵 Tier 2: High-Fidelity Audio Pack<br/>(/sdcard/Bhajans/ ~25-50 MB)"] -->|Read by Service| B
         D["⚙️ Tier 3: Turnkey Provisioner<br/>(setup_appliance.ps1)"] -->|One-Click Orchestration| A
         D -->|Pushes Media & Debloats| C
@@ -127,6 +128,70 @@ Built using the [Anatomy isometric vector system](https://github.com/wheresryan2
 
 ---
 
+## 🔌 Zero-to-Appliance: Complete Setup Guide (From Scratch)
+
+> **Starting with a phone fresh from a drawer?** Here is every step from unboxing to dedicated kiosk.
+> *(Full detailed guide with troubleshooting: [`docs/from-scratch-guide.md`](docs/from-scratch-guide.md))*
+
+```mermaid
+flowchart TD
+    A["📱 Step 0: Factory Reset & Bypass Wizard<br/>(Skip SIM & Google Account)"] --> B["🔓 Step 1: Tap 'Build Number' 7 Times<br/>(Settings ➔ About Phone ➔ Unlocks Dev Mode)"]
+    B --> C["🔌 Step 2: Enable USB Debugging<br/>(Developer Options ➔ Toggle ON)"]
+    C --> D["💻 Step 3: Connect USB to PC<br/>(Accept 'Always allow from this computer')"]
+    D --> E["⚡ Step 4: Run Turnkey Script<br/>(powershell setup_appliance.ps1)"]
+    E --> F["🛕 Step 5: Select as Home Launcher<br/>(Tap Home Button ➔ Choose BhaktiPlayer ➔ Always)"]
+
+    style A fill:#1e1916,stroke:#382c23,color:#fff
+    style B fill:#2a1f18,stroke:#f59e0b,color:#fff
+    style C fill:#1e293b,stroke:#38bdf8,color:#fff
+    style D fill:#3b2d12,stroke:#ffd54f,color:#fff
+    style E fill:#1b3320,stroke:#22c55e,color:#fff
+    style F fill:#14532d,stroke:#4ade80,color:#fff
+```
+
+### 1. Enable Developer Options (The "7-Tap Secret")
+1. Open phone **Settings** ➔ Scroll down to **About phone** (or **About device**).
+2. Find **Build number** (on Samsung: *About phone ➔ Software info ➔ Build number*; on Xiaomi: *MIUI version*).
+3. **Tap "Build number" 7 times rapidly** until a toast notification appears: *"You are now a developer!"*
+
+### 2. Enable USB Debugging & Authorize PC
+1. Go back to **Settings** ➔ Tap **Developer options** (or *Settings ➔ System ➔ Advanced ➔ Developer options*).
+2. Toggle Developer Options **ON** ➔ Scroll to **USB debugging** ➔ Toggle **ON** ➔ Tap **OK**.
+3. Plug the phone into your PC via a USB data cable.
+4. When the phone screen shows *"Allow USB debugging?"*:
+   - Check **☑ "Always allow from this computer"**
+   - Tap **OK**.
+
+### 3. Install ADB on Your Computer (If Not Already Installed)
+* **Windows (PowerShell):** `winget install Google.PlatformTools`
+* **macOS (Terminal):** `brew install android-platform-tools`
+* **Linux (Terminal):** `sudo apt install adb`
+
+Verify by running `adb devices` in your terminal. It should report:
+```
+List of devices attached
+TA0050DIGB    device
+```
+
+### 4. Run Turnkey Appliance Provisioner
+```powershell
+# 1. Clone repository
+git clone https://github.com/SGajjar24/resurrect-phone.git
+cd resurrect-phone
+
+# 2. Connect phone and run turnkey appliance setup
+powershell -ExecutionPolicy Bypass -File scripts/setup_appliance.ps1
+
+# 3. (Optional) Rebuild native APK from source anytime
+powershell -ExecutionPolicy Bypass -File scripts/build.ps1
+```
+
+### 5. Lock as Permanent Home Launcher
+Press the phone's **Home** button ➔ When prompted *"Complete action using"* ➔ Select **શ્રી ભક્તિ સંગ્રહ (BhaktiPlayer)** ➔ Tap **ALWAYS**. 
+*The device will now permanently boot and stay inside the appliance.*
+
+---
+
 ## 🤖 The Universal AI Resurrection Prompt
 
 Want to convert your old Android phone into an appliance using **Claude Code, Gemini CLI, Cursor, Antigravity, or ChatGPT**? 
@@ -194,45 +259,6 @@ Our [`scripts/setup_appliance.ps1`](scripts/setup_appliance.ps1) script automati
 
 ---
 
-## 🚀 Step-by-Step Walkthrough: Resurrect Your Old Phone
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Dev as Developer
-    participant PC as Workstation (PowerShell / ADB)
-    participant Phone as Old Phone (Android 5+)
-    
-    Dev->>Phone: Enable USB Debugging in Settings
-    Dev->>PC: Connect USB Cable
-    PC->>Phone: adb devices
-    Note over PC,Phone: Device authorized (TA0050DIGB)
-    
-    Dev->>PC: Run scripts/setup_appliance.ps1
-    PC->>Phone: Check & reset display density override
-    PC->>Phone: Debloat 20+ carrier telemetry packages
-    PC->>Phone: Configure Immersive Kiosk & Charger policies
-    PC->>Phone: adb install -r apk/BhaktiPlayer.apk
-    PC->>Phone: Launch MainActivity as HOME launcher
-    Note over Phone: ✨ Dedicated Appliance Running!
-```
-
-### Quick Commands:
-
-```powershell
-# 1. Clone repository
-git clone https://github.com/SGajjar24/resurrect-phone.git
-cd resurrect-phone
-
-# 2. Connect phone and run turnkey appliance setup
-powershell -ExecutionPolicy Bypass -File scripts/setup_appliance.ps1
-
-# 3. (Optional) Rebuild from native Java source anytime
-powershell -ExecutionPolicy Bypass -File scripts/build.ps1
-```
-
----
-
 ## 🛠️ Universal Appliance Catalog: What Else Can You Build?
 
 ### 1. 📦 Handheld Wireless Barcode & QR Scanner (POS Terminal)
@@ -274,8 +300,9 @@ resurrect-phone/
 ├── anatomy/              # Isometric vector diagrams (Anatomy engine)
 │   ├── phone-anatomy.svg
 │   └── stack-anatomy.svg
-├── docs/                 # GitHub Pages landing site & AI prompts
+├── docs/                 # GitHub Pages landing site, AI prompts & guides
 │   ├── index.html               # Interactive showcase page
+│   ├── from-scratch-guide.md    # Complete zero-to-one setup guide
 │   ├── ai-prompt.md             # The Universal AI Resurrection Prompt
 │   └── screenshots/             # Live device verification screens
 └── README.md

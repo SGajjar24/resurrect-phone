@@ -270,15 +270,15 @@
       background: #090807;
       border: 1px solid #2e241c;
       border-radius: 12px;
-      padding: 20px;
+      padding: 22px;
       margin: 16px 0;
     }
     .terminal-step {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .terminal-step:last-child { margin-bottom: 0; }
     .terminal-label {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--gold-rich);
       margin-bottom: 6px;
@@ -286,13 +286,14 @@
     }
     .terminal-cmd {
       background: #15110e;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
       color: #86efac;
       border-left: 3px solid var(--gold);
       overflow-x: auto;
+      margin-top: 6px;
     }
 
     footer {
@@ -323,6 +324,9 @@
       </a>
       <a href="#ai-prompt" class="btn btn-secondary">
         <span>🤖 Copy AI Prompt</span>
+      </a>
+      <a href="#scratch-guide" class="btn btn-secondary">
+        <span>🔌 Setup From Scratch</span>
       </a>
     </div>
   </header>
@@ -495,23 +499,64 @@ Begin Phase 1 now by probing the connected ADB device.</pre>
       </p>
     </div>
 
-    <!-- 3-Step Quickstart -->
-    <h2 class="section-title">06. 3-Step Quickstart: Turnkey Deployment</h2>
+    <!-- Zero-to-Appliance Walkthrough -->
+    <h2 class="section-title" id="scratch-guide">06. Zero-to-Appliance: Complete Setup (From Scratch)</h2>
     <div class="card">
+      <p style="margin-bottom: 20px;">
+        Starting with an old phone pulled fresh from a drawer? Follow these exact steps to unlock, authorize, and provision your hardware:
+      </p>
+
       <div class="terminal-box">
         <div class="terminal-step">
-          <span class="terminal-label">Step 1: Connect Phone via USB & Verify Authorization</span>
-          <div class="terminal-cmd">adb devices</div>
+          <span class="terminal-label">Step 0: Factory Reset & Bypass Setup Wizard</span>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 8px;">
+            Wipe old PINs and accounts in <em>Settings ➔ Backup & Reset ➔ Factory Reset</em>. When it reboots, tap <strong>Skip</strong> for SIM, <strong>Skip</strong> for Google Account, and <strong>Skip</strong> for Lock Screen. Connect to Wi-Fi.
+          </p>
         </div>
+
         <div class="terminal-step">
-          <span class="terminal-label">Step 2: Run Automated Turnkey Appliance Provisioner</span>
-          <div class="terminal-cmd">powershell -ExecutionPolicy Bypass -File scripts/setup_appliance.ps1</div>
+          <span class="terminal-label">Step 1: Unlock Developer Options (The "7-Tap Secret")</span>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 8px;">
+            Go to <em>Settings ➔ About phone</em>. Find <strong>Build number</strong> and tap it <strong>7 times rapidly</strong> until the popup says <em>"You are now a developer!"</em>.
+          </p>
         </div>
+
         <div class="terminal-step">
-          <span class="terminal-label">Step 3: (Optional) Recompile Native APK from Source</span>
-          <div class="terminal-cmd">powershell -ExecutionPolicy Bypass -File scripts/build.ps1</div>
+          <span class="terminal-label">Step 2: Enable USB Debugging & Connect Cable</span>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 8px;">
+            Go to <em>Settings ➔ Developer options ➔ Toggle USB Debugging ON</em>. Plug phone into PC with a data cable. When prompted on the phone screen, check <strong>☑ Always allow from this computer</strong> and tap <strong>OK</strong>.
+          </p>
+        </div>
+
+        <div class="terminal-step">
+          <span class="terminal-label">Step 3: Install ADB on PC (Run in PowerShell / Terminal)</span>
+          <div class="terminal-cmd">winget install Google.PlatformTools   # Windows
+# or on macOS: brew install android-platform-tools
+# or on Linux: sudo apt install adb</div>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 0;">
+            Verify with <code style="color: var(--gold);">adb devices</code>. It should report your phone serial followed by <code style="color: #86efac;">device</code>.
+          </p>
+        </div>
+
+        <div class="terminal-step">
+          <span class="terminal-label">Step 4: Run Automated Turnkey Appliance Provisioner</span>
+          <div class="terminal-cmd">git clone https://github.com/SGajjar24/resurrect-phone.git
+cd resurrect-phone
+powershell -ExecutionPolicy Bypass -File scripts/setup_appliance.ps1</div>
+        </div>
+
+        <div class="terminal-step">
+          <span class="terminal-label">Step 5: Lock as Permanent Home Launcher</span>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 0;">
+            Press the phone's <strong>Home</strong> button ➔ When prompted <em>"Complete action using"</em> ➔ Select <strong>શ્રી ભક્તિ સંગ્રહ (BhaktiPlayer)</strong> ➔ Tap <strong>ALWAYS</strong>. The phone is now permanently locked into your dedicated appliance!
+          </p>
         </div>
       </div>
+
+      <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">
+        Detailed brand-by-brand guide (Samsung, Xiaomi, LG, Motorola) & troubleshooting: 
+        <a href="https://github.com/SGajjar24/resurrect-phone/blob/main/docs/from-scratch-guide.md" target="_blank" style="color: var(--gold);">docs/from-scratch-guide.md</a>
+      </p>
     </div>
 
   </div>
